@@ -10,6 +10,7 @@ public class UserService {
     private UserMapper mapper;
 
     public int join(UserEntity param) {
+
         return mapper.insUser(param);
     }
 }

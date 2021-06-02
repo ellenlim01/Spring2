@@ -10,5 +10,8 @@
         <module name="spring1" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="doghotel" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

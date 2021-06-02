@@ -23,7 +23,8 @@ public class UserController {
 
     @RequestMapping(value="/join", method = RequestMethod.POST)
     public String join(UserEntity param) {
-        System.out.println("uid" + param.getUid());
+        System.out.println("uid" + param);
+        service.join(param);
         return "redirect:/user/login";
     }
 }
