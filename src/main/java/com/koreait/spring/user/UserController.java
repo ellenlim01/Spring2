@@ -11,12 +11,17 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @RequestMapping("/login")
+    @RequestMapping(value="/login")
     public String login() {
         return "user/login";
     }
 
-    @RequestMapping("/join")
+    @RequestMapping(value="/login", method=RequestMethod.POST)
+    public String login(UserEntity param) {
+        return "redirect:" + service.login(param);
+    }
+
+    @RequestMapping(value="/join")
     public String join() {
         return "user/join";
     }
