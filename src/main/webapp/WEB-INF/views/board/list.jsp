@@ -5,9 +5,13 @@
 <head>
         <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/res/css/boardList.css">
+    <link rel="stylesheet" href="/res/css/common.css.css">
+    <script defer src="/res/js/boardList.js"></script>
 </head>
 <body>
 <h1>리스트</h1>
+<div>로그인 아이디: ${sessionScope.loginUser.uid}</div>
 <table>
     <tr>
         <th>번호</th>
