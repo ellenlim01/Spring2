@@ -4,6 +4,7 @@ import com.koreait.spring.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -11,6 +12,11 @@ public class BoardService {
 
     @Autowired
     private BoardMapper mapper;
+
+    @Autowired
+    private BoardCmtMapper cmtMapper;
+
+    private HttpSession session;
 
     public List<BoardDomain> selBoardList() {
         return mapper.selBoardList();
@@ -22,5 +28,14 @@ public class BoardService {
 
     public int insBoard(UserEntity param) {
         return mapper.insBoard(param);
+    }
+
+    public int insBoardCmt(BoardCmtEntity param) {
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        param.setIuser(loginUser.getIuser());
+        return cmtMapper.insBoardCmt(param);
+    }
+    public List<BoardCmtDomain> selBoardCmtList(BoardCmtEntity param) {
+        return cmtMapper.selBoardCmtList(param);
     }
 }

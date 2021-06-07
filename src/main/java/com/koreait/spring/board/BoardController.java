@@ -37,14 +37,20 @@ public class BoardController {
 
     @ResponseBody
     /*이 아이를 안주면 jsp 파일을 응답하는 목적 but 적어주면 return 해주는 것을 문자열로 바꿈(JSON 형태)*/
-    @RequestMapping(value = "/cmtInsSel", method = RequestMethod.POST)
+    @RequestMapping(value = "/cmtIns", method = RequestMethod.POST)
     public Map<String, Integer> cmtInsSel(@RequestBody BoardCmtEntity param) {
         System.out.println("param = " + param);
+        int result = service.insBoardCmt(param);
         Map<String, Integer> data = new HashMap();
         /*Map은 순서가 없기 때문에 우리가 일반적으로 알고 있는 forEach문을 돌릴 수 없음*/
-        data.put("result", 1);
-        data.put("age", 30);
+        data.put("result", result);
         return data;
+    }
+
+    @ResponseBody
+    @RequestMapping("/cmtSel")
+    public List<BoardCmtDomain> cmtSel(BoardCmtEntity param) {
+        return service.selBoardCmtList(param);
     }
 
     @RequestMapping("/write")
@@ -57,4 +63,5 @@ public class BoardController {
         service.insBoard(param);
         return "redirect:/board/list";
     }
+
 }
