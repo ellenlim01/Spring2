@@ -16,7 +16,7 @@ function regAjax(param) {
     const init = {
         method: 'POST',
         body: JSON.stringify(param),
-        headers: {
+        headers:{
             'accept' : 'application/json',
             'content-type' : 'application/json;charset=UTF-8'
         }
@@ -30,10 +30,10 @@ function regAjax(param) {
             console.log(myJson);
 
             switch(myJson.result) {
-                case 0:
+                case 0: //등록 실패
                     alert('등록 실패!');
                     break;
-                case 1:
+                case 1: //등록 성공
                     cmtFrmElem.cmt.value = '';
                     getListAjax();
                     break;
@@ -45,7 +45,7 @@ function regAjax(param) {
 function getListAjax() {
     var iboard = cmtListElem.dataset.iboard;
 
-    fetch('cmtInsSel?iboard=' + iboard)
+    fetch('cmtSel?iboard=' + iboard)
         .then(function(res) {
             return res.json();
         })
@@ -59,28 +59,32 @@ function getListAjax() {
 function makeCmtElemList(data) {
 
     cmtListElem.innerHTML = '';
+    /*cmtListElem.innerText = '';
+    cmtListElem.append("");
+    cmtListElem.appendChild("");
+    cmtListElem.prepend("");*/
 
     var tableElem = document.createElement('table');
     var trElemTitle = document.createElement('tr');
     var thElemCtnt = document.createElement('th');
     var thElemWriter = document.createElement('th');
     var thElemRegdate = document.createElement('th');
-    var thElemBigo = document.createElement('th');
+    var thElemRemarks = document.createElement('th');
 
     thElemCtnt.innerText = '내용';
     thElemWriter.innerText = '작성자';
     thElemRegdate.innerText = '작성일';
-    thElemBigo.innerText = '비고';
+    thElemRemarks.innerText = '비고';
 
     trElemTitle.append(thElemCtnt);
     trElemTitle.append(thElemWriter);
     trElemTitle.append(thElemRegdate);
-    trElemTitle.append(thElemBigo);
+    trElemTitle.append(thElemRemarks);
 
     tableElem.append(trElemTitle);
     cmtListElem.append(tableElem);
 
-    var loginUserPk = cmtListElem.dataset.login_user_pk;
+    var loginUserPk = cmtListElem.dataset.loginUserPk;
 
     data.forEach(function(item) {
         var trElemCtnt = document.createElement('tr');
@@ -89,7 +93,7 @@ function makeCmtElemList(data) {
         var tdElem3 = document.createElement('td');
         var tdElem4 = document.createElement('td');
 
-        tdElem1.append(item.cmt);
+        tdElem1.innerText = item.cmt;
         tdElem2.append(item.writerNm);
         tdElem3.append(item.regdate);
 
@@ -186,4 +190,4 @@ function closeModModal() {
     cmtModModalElem.className = 'displayNone';
 }
 
-//getListAjax(); //이 파일이 임포트되면 함수 1회 호출!
+getListAjax(); //이 파일이 임포트되면 함수 1회 호출!

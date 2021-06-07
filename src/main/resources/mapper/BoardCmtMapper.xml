@@ -5,14 +5,14 @@
 <mapper namespace="com.koreait.spring.board.BoardCmtMapper">
     <insert id="insBoardCmt">
         INSERT INTO t_board_cmt
-        (iboard, cmt, iuser)
+        ( iboard, iuser, cmt )
         VALUES
-        (#{iboard}, #{cmt}, #{iuser})
+        ( #{iboard}, #{iuser}, #{cmt} )
     </insert>
     <select id="selBoardCmtList" resultType="BoardCmtDomain">
         SELECT A.icmt, A.iuser, A.cmt, A.regdate, B.unm AS writerNm, B.profileImg
         FROM t_board_cmt A
-        INNER JOIN t_user BEFORE
+        INNER JOIN t_user B
         ON A.iuser = B.iuser
         WHERE A.iboard = #{iboard}
         ORDER BY A.icmt

@@ -27,7 +27,7 @@ public class BoardController {
         return "board/list";
     }
 
-    @RequestMapping(value = "/detail")
+    @RequestMapping("/detail")
     public String detail(BoardDTO param, Model model) {
         System.out.println("iboard : " + param.getIboard());
         BoardDomain data = service.selBoard(param);
@@ -35,10 +35,10 @@ public class BoardController {
         return "board/detail";
     }
 
-    @ResponseBody
     /*이 아이를 안주면 jsp 파일을 응답하는 목적 but 적어주면 return 해주는 것을 문자열로 바꿈(JSON 형태)*/
+    @ResponseBody
     @RequestMapping(value = "/cmtIns", method = RequestMethod.POST)
-    public Map<String, Integer> cmtInsSel(@RequestBody BoardCmtEntity param) {
+    public Map<String, Integer> cmtIns(@RequestBody BoardCmtEntity param) {
         System.out.println("param = " + param);
         int result = service.insBoardCmt(param);
         Map<String, Integer> data = new HashMap();

@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>${requestScope.data.title}</title>
     <link rel="stylesheet" href="/res/css/boardDetail.css">
-    <script defer src="/res/js/boardDetail.js"></script>
 </head>
 <body>
     <div><a href="#" onclick="goBack();">돌아가기</a></div>
@@ -17,11 +16,13 @@
     <c:if test="${not empty sessionScope.loginUser}">
         <div>
             <form id="cmtFrm" onsubmit="return false;">
-                <input type="text" id="cmt" placeholder="댓글">
+                <input type="text" id="cmt" placeholder="댓글" value="">
                 <input type="button" value="댓글달기" onclick="regCmt();">
             </form>
         </div>
     </c:if>
-    <div id="cmtList" data-login-user-pk="${sessionScope.loginUser.iuser}" data-iboard="${param.iboard}"></div>
+    <div id="cmtList" data-login-user-pk="${sessionScope.loginUser.iuser}"
+         data-iboard="${param.iboard}"></div>
 </body>
 </html>
+<script defer src="/res/js/boardDetail.js"></script>

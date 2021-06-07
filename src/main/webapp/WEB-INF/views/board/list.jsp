@@ -6,7 +6,7 @@
         <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/res/css/boardList.css">
-    <link rel="stylesheet" href="/res/css/common.css.css">
+    <link rel="stylesheet" href="/res/css/common.css">
     <script defer src="/res/js/boardList.js"></script>
 </head>
 <body>
