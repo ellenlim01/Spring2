@@ -16,6 +16,7 @@ public class BoardService {
     @Autowired
     private BoardCmtMapper cmtMapper;
 
+    @Autowired
     private HttpSession session;
 
     public List<BoardDomain> selBoardList() {
@@ -26,16 +27,19 @@ public class BoardService {
         return mapper.selBoard(param);
     }
 
-    public int insBoard(UserEntity param) {
-        return mapper.insBoard(param);
-    }
-
     public int insBoardCmt(BoardCmtEntity param) {
         UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
         param.setIuser(loginUser.getIuser());
+
         return cmtMapper.insBoardCmt(param);
     }
     public List<BoardCmtDomain> selBoardCmtList(BoardCmtEntity param) {
         return cmtMapper.selBoardCmtList(param);
+    }
+
+    public int delBoardCmt(BoardCmtEntity param) {
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        param.setIuser(loginUser.getIuser());
+        return cmtMapper.delBoardCmt(param);
     }
 }

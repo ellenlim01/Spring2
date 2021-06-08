@@ -6,7 +6,7 @@ function regCmt() {
     var cmtVal = cmtFrmElem.cmt.value;
     var param = {
         iboard: cmtListElem.dataset.iboard,
-        cmt: cmtVal
+        cmt: cmtFrmElem.cmt.value
     };
     regAjax(param);
 }
@@ -45,7 +45,7 @@ function regAjax(param) {
 function getListAjax() {
     var iboard = cmtListElem.dataset.iboard;
 
-    fetch('cmtSel?iboard=' + iboard)
+    fetch('cmt/' + iboard)
         .then(function(res) {
             return res.json();
         })
@@ -131,7 +131,7 @@ function makeCmtElemList(data) {
 }
 
 function delAjax(icmt) {
-    fetch('cmtDelUpd?icmt=' + icmt)
+    fetch('cmt/' + icmt, { method: 'DELETE'})
         .then(function(res) {
             return res.json();
         })

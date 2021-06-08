@@ -1,13 +1,9 @@
 package com.koreait.spring.board;
 
-import com.koreait.spring.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,26 +38,24 @@ public class BoardController {
         System.out.println("param = " + param);
         int result = service.insBoardCmt(param);
         Map<String, Integer> data = new HashMap();
-        /*Map은 순서가 없기 때문에 우리가 일반적으로 알고 있는 forEach문을 돌릴 수 없음*/
         data.put("result", result);
         return data;
     }
 
     @ResponseBody
-    @RequestMapping("/cmtSel")
-    public List<BoardCmtDomain> cmtSel(BoardCmtEntity param) {
+    @RequestMapping("/cmt/{iboard}")
+    public List<BoardCmtDomain> cmtSel(BoardCmtEntity param, @PathVariable int iboard) {
+        param.setIboard(iboard);
         return service.selBoardCmtList(param);
     }
 
-    @RequestMapping("/write")
-    public String write() {
-        return "board/write";
+    @ResponseBody
+    @RequestMapping(value = "/cmt/{icmt}" , method = RequestMethod.DELETE)
+    public Map<String, Integer> cmtDel(BoardCmtEntity param, @PathVariable int icmt) {
+        param.setIcmt(icmt);
+        int result = service.delBoardCmt(param);
+        Map<String, Integer> data = new HashMap();
+        data.put("result", result);
+        return data;
     }
-
-    @RequestMapping(value = "/write", method = RequestMethod.POST)
-    public String write(UserEntity param) {
-        service.insBoard(param);
-        return "redirect:/board/list";
-    }
-
 }
