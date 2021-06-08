@@ -17,7 +17,11 @@
         WHERE A.iboard = #{iboard}
         ORDER BY A.icmt
     </select>
-
+    <update id="updBoardCmt">
+        UPDATE t_board_cmt
+        SET cmt = #{cmt}
+        WHERE icmt = #{icmt} AND iuser = #{iuser}
+    </update>
     <delete id="delBoardCmt">
         DElETE FROM t_board_cmt
         WHERE icmt = #{icmt} AND iuser = #{iuser}
