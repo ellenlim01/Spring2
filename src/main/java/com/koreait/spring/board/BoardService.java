@@ -27,6 +27,16 @@ public class BoardService {
         return mapper.selBoard(param);
     }
 
+    public int writeMod(BoardEntity param) {
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        param.setIuser(loginUser.getIuser());
+
+        if(param.getIboard() == 0) {
+            return param.getIboard();
+        }
+        return 0;
+    }
+
     public int insBoardCmt(BoardCmtEntity param) {
         UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
         param.setIuser(loginUser.getIuser());
@@ -47,4 +57,6 @@ public class BoardService {
         param.setIuser(loginUser.getIuser());
         return cmtMapper.delBoardCmt(param);
     }
+
+
 }

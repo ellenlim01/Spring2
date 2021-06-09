@@ -6,24 +6,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
     @Autowired
     private UserService service;
 
     @RequestMapping(value="/login")
-    public String login(@RequestParam(value="err", defaultValue ="0") int err, Model model) {
-        //int로 주고 싶으면 defaultValue ="0"를 설정해주면 됨 이때 required = false는 딱히 의미 없음
-        switch (err) {
+    public void login(Model model, @RequestParam(value="err", defaultValue="0") int err) {
+        switch(err) {
             case 1: //아이디 없음
-                model.addAttribute("errMsg", "아이디를 확인해주세요.");
+                model.addAttribute("errMsg", "아이디를 확인해 주세요.");
                 break;
             case 2: //비밀번호 틀림
-                model.addAttribute("errMsg", "비밀번호를 확인해주세요.");
+                model.addAttribute("errMsg", "비밀번호를 확인해 주세요.");
                 break;
         }
-        return "user/login";
     }
 
     @RequestMapping(value="/login", method=RequestMethod.POST)
@@ -32,23 +34,30 @@ public class UserController {
     }
 
     @RequestMapping(value="/join")
-    public String join() {
-        return "user/join";
-    }
+    public void join() {}
 
-    @RequestMapping(value="/join", method = RequestMethod.POST)
+    @RequestMapping(value="/join", method=RequestMethod.POST)
     public String join(UserEntity param) {
         System.out.println("uid" + param);
         service.join(param);
         return "redirect:/user/login";
     }
 
-    @GetMapping("/profile")
-    public void profile() { }
+    @GetMapping("/logout")
+    public String logout(HttpSession hs, HttpServletRequest req) {
+        hs.invalidate();
+        String referer = req.getHeader("Referer");
+        return "redirect:" + referer;
+        //return "redirect:/board/list";
+    }
 
-    //@RequestMapping(value = "/profile", method = RequestMethod.POST)
+    @GetMapping("/profile")
+    public void profile() {}
+
+    //@RequestMapping(value="/profile", method=RequestMethod.POST)
     @PostMapping("/profile")
     public String profile(MultipartFile profileImg) {
         return "redirect:" + service.uploadProfile(profileImg);
     }
+
 }

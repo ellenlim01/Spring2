@@ -31,6 +31,15 @@ public class BoardController {
         return "board/detail";
     }
 
+    @GetMapping("/writeMod")
+    public void writeMod() {}
+
+    @PostMapping("/writeMod")
+    public String writeMod(BoardEntity param) {
+        int iboard = service.writeMod(param);
+        return "redirect:detail?iboard=" + iboard;
+    }
+
     /*이 아이를 안주면 jsp 파일을 응답하는 목적 but 적어주면 return 해주는 것을 문자열로 바꿈(JSON 형태)*/
     @ResponseBody
     @RequestMapping(value = "/cmtIns", method = RequestMethod.POST)
