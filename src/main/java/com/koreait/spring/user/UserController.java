@@ -3,10 +3,7 @@ package com.koreait.spring.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -46,10 +43,8 @@ public class UserController {
         return "redirect:/user/login";
     }
 
-    @RequestMapping("/profile")
-    public String profile() {
-        return "user/profile";
-    }
+    @GetMapping("/profile")
+    public void profile() { }
 
     //@RequestMapping(value = "/profile", method = RequestMethod.POST)
     @PostMapping("/profile")
