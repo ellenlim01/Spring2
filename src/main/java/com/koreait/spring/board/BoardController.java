@@ -27,17 +27,29 @@ public class BoardController {
     public String detail(BoardDTO param, Model model) {
         System.out.println("iboard : " + param.getIboard());
         BoardDomain data = service.selBoard(param);
-        model.addAttribute("data", data);
+        model.addAttribute("boardDomain", data);
         return "board/detail";
     }
 
     @GetMapping("/writeMod")
     public void writeMod() {}
+    public void writeMod(BoardDTO param, Model model) {
+        System.out.println("param = " + param);
+        if(param.getIboard() > 0) {
+            model.addAttribute("data", service.selBoard(param));
+        }
+    }
 
     @PostMapping("/writeMod")
-    public String writeMod(BoardEntity param) {
+    public String writeModProc(BoardEntity param) {
         int iboard = service.writeMod(param);
         return "redirect:detail?iboard=" + iboard;
+    }
+
+    @GetMapping("/delBoard")
+    public String delBoard(BoardEntity param) {
+        service.delBoard(param);
+        return "redirect:list";
     }
 
     /*이 아이를 안주면 jsp 파일을 응답하는 목적 but 적어주면 return 해주는 것을 문자열로 바꿈(JSON 형태)*/
