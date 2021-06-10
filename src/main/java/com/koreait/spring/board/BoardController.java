@@ -32,7 +32,6 @@ public class BoardController {
     }
 
     @GetMapping("/writeMod")
-    public void writeMod() {}
     public void writeMod(BoardDTO param, Model model) {
         System.out.println("param = " + param);
         if(param.getIboard() > 0) {
