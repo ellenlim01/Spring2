@@ -20,6 +20,10 @@
                             ${item.title}
                         </c:otherwise>
                 </c:choose>
+                <!--좋아요 여부-->
+                <c:if test="${not empty sessionScope.loginUser && item.isFav eq 1}">
+                    <i class="fas fa-star pointer"></i>
+                </c:if>
             </td>
 
                 <c:choose>

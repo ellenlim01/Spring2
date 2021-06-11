@@ -242,7 +242,7 @@ function delFavAjax() {
 }
 
 function getFavAjax() {
-    fetch('fav?iboard=' + cmtListElem.dataset.iboard)
+    fetch('fav/' + cmtListElem.dataset.iboard)
         .then(function(res) {
             return res.json();
         })
