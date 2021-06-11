@@ -3,13 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koreait.spring.board.BoardMapper">
+
     <insert id="insBoard">
         INSERT INTO t_board
         ( title, ctnt, iuser )
         VALUES
         ( #{title}, #{ctnt}, #{iuser} )
     </insert>
-
+    <select id="selMaxPageVal" resultType="int">
+        SELECT CEIL(COUNT(iboard) / #{recordCnt})
+        FROM t_board
+    </select>
     <select id="selBoardList" resultType="BoardDomain">
         SELECT A.iboard, A.title, A.iuser, A.regdt, B.unm AS writerNm, B.profileImg
              , CASE WHEN C.iboard is null THEN 0 ELSE 1
@@ -26,6 +30,9 @@
             ON A.iboard = C.iboard
             AND C.iuser = #{iuser}
             ORDER BY A.iboard DESC
+            <if test="recordCnt > 0">
+                LIMIT #{startIdx}, #{recordCnt}
+            </if>
     </select>
 
     <select id="selBoard" resultType="BoardDomain">

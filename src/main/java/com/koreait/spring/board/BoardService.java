@@ -17,10 +17,19 @@ public class BoardService {
     @Autowired
     private MyUtils myUtils;
 
+    public int selMaxPageVal(BoardDTO param) {
+        return mapper.selMaxPageVal(param);
+    }
+
     public List<BoardDomain> selBoardList(BoardDTO param) {
         param.setIuser((myUtils.getLoginUserPk()));
+
+        int startIdx = (param.getPage() - 1) * param.getRecordCnt();
+        param.setStartIdx(startIdx);
+
         return mapper.selBoardList(param);
     }
+
     public BoardDomain selBoard(BoardDTO param) {
         return mapper.selBoard(param);
     }

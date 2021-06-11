@@ -27,14 +27,29 @@ function makeView(data) {
     data.forEach(item => {
         const tr = document.createElement('tr');
         table.append(tr);
+        tr.classList.add('record');
+        tr.addEventListener('click', ()=>{
+            moveToDetail(item.iboard);
+        });
+
+        let imgSrc = '/res/img/noprofile.jpg';
+        if(item.profileImg != null) {
+            imgSrc = `/img/${item.iuser}/${item.profileImg}`;
+        }
 
         tr.innerHTML = `
             <td>${item.iboard}</td>
             <td>${item.title}</td>
-            <td>${item.writerNm}</td>
+            <td>
+                ${item.writerNm} 
+                <img src="${imgSrc}"> 
+            </td>
             <td>${item.regdt}</td>
         `;
     })
 }
 
+function moveToDetail(iboard) {
+    location.href = '/board/detail?iboard=' +iboard;
+}
 getListAjax();

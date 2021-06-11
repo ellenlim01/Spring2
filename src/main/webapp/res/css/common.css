@@ -36,3 +36,6 @@ section { padding-left: 40px; padding-right: 40px;}
 .pointer {
     cursor: pointer;
 }
+a {
+    text-decoration: none;
+}
