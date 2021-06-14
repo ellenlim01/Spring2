@@ -28,4 +28,6 @@ public class BoardFavService {
         param.setIuser(utils.getLoginUserPk());
         return mapper.delBoardFav(param);
     }
+
+
 }

@@ -12,8 +12,8 @@
 
 <h1>${requestScope.boardDomain.title}</h1>
 <div>글번호 : ${requestScope.boardDomain.iboard}
-    <c:if test="${not empty sessionScope.loginUser}">
-        <i id="favIcon" class="far fa-star pointer"></i>
+    <c:if test="${ not empty sessionScope.loginUser }">
+        <i id="favIcon" class="far fa-kiss-wink-heart pointer"></i>
     </c:if>
 </div>
 <div>작성자 : <c:out value="${requestScope.boardDomain.writerNm}"/> | 작성일 : ${requestScope.boardDomain.regdt}</div>

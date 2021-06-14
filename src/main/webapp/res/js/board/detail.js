@@ -2,11 +2,12 @@ var cmtFrmElem = document.querySelector('#cmtFrm');
 var cmtListElem = document.querySelector('#cmtList');
 var cmtModModalElem = document.querySelector('#modal');
 
+
 function regCmt() {
     var cmtVal = cmtFrmElem.cmt.value;
     var param = {
         iboard: cmtListElem.dataset.iboard,
-        cmt: cmtFrmElem.cmt.value
+        cmt: cmtVal
     };
     regAjax(param);
 }
@@ -22,7 +23,7 @@ function regAjax(param) {
         }
     };
 
-    fetch('cmtIns', init)
+    fetch('cmt', init)
         .then(function(res) {
             return res.json();
         })
@@ -57,29 +58,23 @@ function getListAjax() {
 }
 
 function makeCmtElemList(data) {
-
     cmtListElem.innerHTML = '';
-    /*cmtListElem.innerText = '';
-    cmtListElem.append("");
-    cmtListElem.appendChild("");
-    cmtListElem.prepend("");*/
-
     var tableElem = document.createElement('table');
     var trElemTitle = document.createElement('tr');
     var thElemCtnt = document.createElement('th');
     var thElemWriter = document.createElement('th');
     var thElemRegdate = document.createElement('th');
-    var thElemRemarks = document.createElement('th');
+    var thElemBigo = document.createElement('th');
 
     thElemCtnt.innerText = '내용';
     thElemWriter.innerText = '작성자';
     thElemRegdate.innerText = '작성일';
-    thElemRemarks.innerText = '비고';
+    thElemBigo.innerText = '비고';
 
     trElemTitle.append(thElemCtnt);
     trElemTitle.append(thElemWriter);
     trElemTitle.append(thElemRegdate);
-    trElemTitle.append(thElemRemarks);
+    trElemTitle.append(thElemBigo);
 
     tableElem.append(trElemTitle);
     cmtListElem.append(tableElem);
@@ -96,6 +91,7 @@ function makeCmtElemList(data) {
         tdElem1.innerText = item.cmt;
         tdElem2.append(item.writerNm);
         tdElem3.append(item.regdate);
+
 
         if(parseInt(loginUserPk) === item.iuser) {
             var delBtn = document.createElement('button');
@@ -131,7 +127,7 @@ function makeCmtElemList(data) {
 }
 
 function delAjax(icmt) {
-    fetch('cmt/' + icmt, { method: 'DELETE'})
+    fetch('cmt/' + icmt, { method: 'DELETE' })
         .then(function(res) {
             return res.json();
         })
@@ -203,6 +199,7 @@ favIconElem.addEventListener('click', function() {
     }
 });
 
+//좋아요 처리
 function insFavAjax() {
     const param = { iboard: cmtListElem.dataset.iboard };
     const init = {
@@ -224,6 +221,7 @@ function insFavAjax() {
         })
 }
 
+//좋아요 취소
 function delFavAjax() {
     const init = {
         method: 'DELETE'
@@ -241,6 +239,8 @@ function delFavAjax() {
         })
 }
 
+
+//좋아요 여부 값 가져오기
 function getFavAjax() {
     fetch('fav/' + cmtListElem.dataset.iboard)
         .then(function(res) {

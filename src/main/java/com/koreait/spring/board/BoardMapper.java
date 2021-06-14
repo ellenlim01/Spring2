@@ -1,7 +1,7 @@
+
 package com.koreait.spring.board;
 
 import org.apache.ibatis.annotations.Mapper;
-
 import java.util.List;
 
 @Mapper

@@ -39,3 +39,4 @@ section { padding-left: 40px; padding-right: 40px;}
 a {
     text-decoration: none;
 }
+.selected { color: crimson; }
